@@ -1,4 +1,4 @@
-package immanent
+package k3d
 
 command: {
 	cmd:  string @tag(cmd)

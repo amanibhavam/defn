@@ -1,12 +1,4 @@
-package immanent
-
-import (
-    "github.com/defn/boot/k3d"
-)
-
-#BootContext: {
-    k3d.#K3D
-}
+package k3d
 
 bootContext: #BootContext & {
     k3d_name: "immanent"
