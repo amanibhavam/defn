@@ -9,3 +9,7 @@ import (
 }
 
 bootContext: #BootContext
+
+app: [string]: {...}
+
+bootContext: "app": app

@@ -1,1 +1,1 @@
-module: "github.com/defn/template"
+module: "github.com/jojomomojo/defn"

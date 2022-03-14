@@ -1,12 +1,6 @@
-package k3d
+package app
 
-app: [aname=string]: #App & {
-	app_name: aname
-}
-
-bootContext: "app": app
-
-#App: {
+#AdminApp: {
 	app_name:  string
 
 	output: {
