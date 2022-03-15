@@ -5,5 +5,6 @@ import (
 	App "github.com/amanibhavam/defn/app/admin"
 )
 
-bootContext: Compute.bootContext
-bootContext: app: immanent: App.#Admin
+bootContext: Compute.bootContext & {
+	app: immanent: App.#Admin
+}
