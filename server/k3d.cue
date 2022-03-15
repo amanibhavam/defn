@@ -10,6 +10,6 @@ import (
 
 bootContext: #BootContext
 
-app: [string]: {...}
+app: [aname=string]: app_name: aname
 
 bootContext: "app": app
