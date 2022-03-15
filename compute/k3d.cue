@@ -7,5 +7,3 @@ import (
 #BootContext: {
 	k3d.#K3D
 }
-
-bootContext: #BootContext
