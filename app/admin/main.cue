@@ -1,10 +1,6 @@
 package admin
 
-bootContext: app: [aname=string]: #AdminApp & {
-        app_name: aname
-}
-
-#AdminApp: {
+#Admin: {
 	app_name: string
 
 	output: {
