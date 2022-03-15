@@ -1,4 +1,4 @@
-package compute
+package immanent
 
 command: {
 	cmd:  string @tag(cmd)

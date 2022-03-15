@@ -1,7 +1,7 @@
 package immanent
 
 import (
-	Compute "github.com/amanibhavam/defn/compute"
+	Compute "github.com/amanibhavam/defn/compute:k3d"
 )
 
 bootContext: Compute.#BootContext & {

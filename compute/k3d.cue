@@ -1,12 +1,8 @@
-package compute
+package k3d
 
 import (
 	"github.com/defn/boot/k3d"
 )
-
-#Compute: {
-
-}
 
 #BootContext: {
 	k3d.#K3D
