@@ -45,6 +45,9 @@ package app
 						name:      "password-store"
 						mountPath: "/home/ubuntu/.password-store"
 					}, {
+						name:      "kube"
+						mountPath: "/home/ubuntu/.kube"
+					}, {
 						name:      "work"
 						mountPath: "/workspaces"
 					}]
@@ -55,6 +58,9 @@ package app
 				}, {
 					name: "password-store"
 					hostPath: path: "/mnt/password-store"
+				}, {
+					name: "kube"
+					hostPath: path: "/mnt/kube"
 				}, {
 					name: "work"
 					hostPath: path: "/mnt/work"
