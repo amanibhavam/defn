@@ -9,7 +9,3 @@ import (
 }
 
 bootContext: #BootContext
-
-app: [aname=string]: app_name: aname
-
-bootContext: "app": app

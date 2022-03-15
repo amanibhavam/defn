@@ -4,4 +4,6 @@ import (
     App "github.com/jojomomojo/defn/app"
 )
 
-app: defm: App.#AdminApp & {}
+bootContext: app: defm: App.#AdminApp & {
+    app_name: "defm"
+}

@@ -19,6 +19,9 @@ volumes:
   - volume: k3d-password-store:/mnt/password-store
     nodeFilters:
       - server:0
+  - volume: k3d-kube:/home/ubuntu/.kube
+    nodeFilters:
+      - server:0
   - volume: k3d-work:/mnt/work
     nodeFilters:
       - server:0
