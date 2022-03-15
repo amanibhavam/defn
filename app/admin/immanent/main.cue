@@ -6,6 +6,4 @@ import (
 )
 
 bootContext: Compute.bootContext
-bootContext: app: immanent: App.#Admin & {
-    app_name: "immanent"
-}
+bootContext: app: immanent: App.#Admin
