@@ -4,6 +4,4 @@ import (
 	"github.com/defn/boot/k3d"
 )
 
-#BootContext: {
-	k3d.#K3D
-}
+#BootContext: k3d.#K3D
