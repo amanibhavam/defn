@@ -36,3 +36,5 @@ github.com/defn/boot v0.0.75 h1:LhIQex1ETx/Gtg2kDXV7pXWdMipWq4vr6uYPEdgsGp8=
 github.com/defn/boot v0.0.75/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
 github.com/defn/boot v0.0.76 h1:kqZWrIzb+uqTZMcue3vEYs/yNpU53XkSSUh3/ak+fv4=
 github.com/defn/boot v0.0.76/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
+github.com/defn/boot v0.0.77 h1:4MxeUboGgFukkOOn6OPzugqzmbei49ZL5foBqLnsjMg=
+github.com/defn/boot v0.0.77/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
