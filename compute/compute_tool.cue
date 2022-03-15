@@ -1,4 +1,4 @@
-package defn
+package compute
 
 command: {
 	cmd:  string @tag(cmd)

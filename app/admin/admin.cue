@@ -1,7 +1,11 @@
-package app
+package admin
+
+bootContext: app: [aname=string]: #AdminApp & {
+        app_name: aname
+}
 
 #AdminApp: {
-	app_name:  string
+	app_name: string
 
 	output: {
 		namespace: "\(app_name)": {

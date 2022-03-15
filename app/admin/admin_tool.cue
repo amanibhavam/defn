@@ -1,4 +1,4 @@
-package k3d
+package admin
 
 command: {
 	cmd:  string @tag(cmd)
