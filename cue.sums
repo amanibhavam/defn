@@ -30,3 +30,7 @@ github.com/defn/boot v0.0.72 h1:19Ucoow/5WK/drC5gsAXgygo9Bo5u20c2pgxILVxjiA=
 github.com/defn/boot v0.0.72/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
 github.com/defn/boot v0.0.73 h1:U+q7sgmrPwys/b65gZK9SYiYWrfsGGS4HYXzfEuzpS0=
 github.com/defn/boot v0.0.73/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
+github.com/defn/boot v0.0.74 h1:L0Ww+v80cdKRyJOHuDMfzpsFGSmls55C6vsGkPQPf4A=
+github.com/defn/boot v0.0.74/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
+github.com/defn/boot v0.0.75 h1:LhIQex1ETx/Gtg2kDXV7pXWdMipWq4vr6uYPEdgsGp8=
+github.com/defn/boot v0.0.75/cue.mods h1:vg/uqreyeIZfY+GXxj0yQbKxXLI07XU4z2BvrOblkSI=
