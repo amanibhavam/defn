@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: roke
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: roke
+subjects:
+  - kind: ServiceAccount
+    namespace: roke
+    name: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: roke
+  name: roke
+spec:
+  containers:
+    - name: defn
+      image: defn/defn
+      tty: true
+      volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+        - name: password-store
+          mountPath: /home/ubuntu/.password-store
+        - name: kube
+          mountPath: /home/ubuntu/.kube
+        - name: work
+          mountPath: /workspaces
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+    - name: password-store
+      hostPath:
+        path: /mnt/password-store
+    - name: kube
+      hostPath:
+        path: /mnt/kube
+    - name: work
+      hostPath:
+        path: /mnt/work

@@ -36,7 +36,7 @@ package admin
 			spec: {
 				containers: [{
 					name:  "defn"
-					image: "defn/dev"
+					image: "defn/defn"
 					tty:   true
 					volumeMounts: [{
 						name:      "docker-sock"
