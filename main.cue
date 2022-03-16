@@ -5,7 +5,7 @@ import (
 	"github.com/defn/boot/devcontainer"
 )
 
-#BootContext: ctx={
+#BootContext: {
 	project.#Project
 	devcontainer.#DevContainer
 }
