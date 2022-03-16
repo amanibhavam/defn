@@ -6,7 +6,7 @@ k8s_yaml('main.yaml')
 load('ext://uibutton', 'cmd_button', 'location', 'text_input')
 
 cmd_button(name='vscode',
-           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-imma+namespace=imma+podname=imma+name=defn+image=defn++/workspaces/defn/app/admin/imma'],
+           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-imma+namespace=imma+podname=imma+name=defn+image=defn++/workspaces/defn/app/admin/roke'],
            text='Launch VSCode',
            location=location.NAV,
            icon_name='waving_hand')
