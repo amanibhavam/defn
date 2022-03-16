@@ -1,7 +1,7 @@
 apiVersion: k3d.io/v1alpha4
 kind: Simple
 metadata:
-  name: immanent
+  name: imma
 servers: 1
 agents: 0
 kubeAPI:
