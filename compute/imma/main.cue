@@ -12,6 +12,4 @@ bootContext: Compute.#BootContext & {
 		"80:30080",
 		"443:30443",
 	]
-
-	home: "/Users/defn"
 }

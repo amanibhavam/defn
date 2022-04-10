@@ -6,5 +6,5 @@ import (
 )
 
 bootContext: Compute.bootContext & {
-  app: imma: App.#Admin
+	app: imma: App.#Admin
 }
