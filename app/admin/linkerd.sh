@@ -14,8 +14,6 @@ case "${1}" in
    restart)
       kubectl -n linkerd rollout restart deployments
       sleep 10; linkerd check --proxy
-      kubectl -n linkerd-viz rollout restart deployments
-      sleep 10; linkerd check --proxy
       ;;
    change-identity)
       linkerd upgrade --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
