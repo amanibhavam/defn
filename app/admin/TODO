@@ -1,3 +1,5 @@
+c down; c up; c context
+
 docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
     echo $a
     : | docker exec $a sh -c "mount bpffs /sys/fs/bpf -t bpf"
@@ -5,5 +7,4 @@ docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
     : | docker exec $a sh -c "if ! test -e /bin/mount; then ln -nfs /bin/aux/mount bin/; fi"
 done
 
-cilium uninstall
 cilium install --version v1.11.3
