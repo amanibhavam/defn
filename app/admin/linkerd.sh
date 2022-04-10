@@ -3,22 +3,30 @@
 case "${1}" in
    install)
       linkerd install --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
+      sleep 10; linkerd check --proxy
+      linkerd viz install | kubectl apply -f -
+      sleep 10; linkerd viz check
+      linkerd check --proxy
       ;;
    add-anchor)
-      linkerd upgrade --identity-trust-anchors-file both.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
+      linkerd upgrade --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
       ;;
    restart)
       kubectl -n linkerd rollout restart deployments
+      sleep 10; linkerd check --proxy
+      kubectl -n linkerd-viz rollout restart deployments
+      sleep 10; linkerd check --proxy
       ;;
    change-identity)
-      linkerd upgrade --identity-trust-anchors-file both.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
+      linkerd upgrade --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
       ;;
    only-anchor)
       linkerd upgrade --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
       ;;
    recreate)
+      kubectl delete ns linkerd-viz
       kubectl delete ns linkerd
-      rm -f v*.crt v*.key
+      rm -f ./*.crt ./*.key
       "$0" new-ca v1
       "$0" install v1
       ;;
@@ -28,7 +36,8 @@ case "${1}" in
          step certificate create root.linkerd.cluster.local "$a-ca.crt" "$a-ca.key" --not-after=8700h --no-password --insecure --profile root-ca --force
          step certificate create identity.linkerd.cluster.local "$a-identity.crt" "$a-identity.key" --not-after=8700h --no-password --insecure --profile intermediate-ca --ca "$a-ca.crt" --ca-key "$a-ca.key" --force
       done
-      cat v*-ca.crt > both.crt
+      cat v*-ca.crt > trust-anchors.crt
+      exit 0
       ;;
    v*)
       "$0" new-ca "$1"
@@ -42,11 +51,7 @@ case "${1}" in
       ;;
    *)
       echo recreate
-      echo rotate vX
+      echo rotate
       exit 0
       ;;
 esac
-
-sleep 10
-linkerd check --proxy
-kubectl -n linkerd get pods
