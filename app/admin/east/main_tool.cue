@@ -1,4 +1,4 @@
-package imma
+package east
 
 command: {
 	args: string @tag(args)

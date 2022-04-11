@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: imma
+  name: east
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: imma
+  name: east
 subjects:
   - kind: ServiceAccount
-    namespace: imma
+    namespace: east
     name: default
 roleRef:
   kind: ClusterRole
@@ -19,8 +19,8 @@ roleRef:
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: imma
-  name: imma
+  namespace: east
+  name: east
 spec:
   containers:
     - name: defn

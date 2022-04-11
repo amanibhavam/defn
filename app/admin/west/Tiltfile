@@ -1,6 +1,6 @@
 analytics_settings(False)
 
-allow_k8s_contexts('k3d-roke')
+allow_k8s_contexts('k3d-west')
 
 docker_build('defn/defn', '.')
 k8s_yaml('main.yaml')
@@ -8,7 +8,7 @@ k8s_yaml('main.yaml')
 load('ext://uibutton', 'cmd_button', 'location', 'text_input')
 
 cmd_button(name='vscode',
-           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-roke+namespace=roke+podname=roke+name=defn+image=defn++/workspaces/defn/app/admin/imma'],
+           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-west+namespace=west+podname=west+name=defn+image=defn++/workspaces/defn/app/admin/east'],
            text='Launch VSCode',
            location=location.NAV,
            icon_name='waving_hand')
@@ -26,5 +26,5 @@ cmd_button(name='linkerd',
            icon_name='waving_hand')
 
 local_resource('vscode',
-    cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-roke+namespace=roke+podname=roke+name=defn+image=defn++/workspaces/defn/app/admin/imma',
-    resource_deps=['roke'])
+    cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-west+namespace=west+podname=west+name=defn+image=defn++/workspaces/defn/app/admin/east',
+    resource_deps=['west'])

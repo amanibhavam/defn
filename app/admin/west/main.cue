@@ -1,10 +1,10 @@
-package imma
+package west
 
 import (
-	Compute "github.com/amanibhavam/defn/compute/imma"
+	Compute "github.com/amanibhavam/defn/compute/west"
 	App "github.com/amanibhavam/defn/app/admin"
 )
 
 bootContext: Compute.bootContext & {
-	app: imma: App.#Admin
+  app: west: App.#Admin
 }
