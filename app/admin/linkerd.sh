@@ -22,9 +22,8 @@ case "${1}" in
       linkerd upgrade --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
       ;;
    recreate)
-      kubectl delete ns linkerd-viz
-      kubectl delete ns linkerd
-      rm -f ./*.crt ./*.key
+      linkerd viz uninstall
+      linkerd uninstall
       "$0" install v1
       ;;
    new-ca)
