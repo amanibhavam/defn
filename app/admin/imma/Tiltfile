@@ -12,3 +12,5 @@ cmd_button(name='vscode',
            text='Launch VSCode',
            location=location.NAV,
            icon_name='waving_hand')
+
+local_resource('vscode', cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-imma+namespace=imma+podname=imma+name=defn+image=defn++/workspaces/defn/app/admin/roke', deps=['imma'])
