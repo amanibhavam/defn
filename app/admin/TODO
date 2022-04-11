@@ -11,3 +11,5 @@ cilium uninstall
 cilium install --version v1.11.3
 cilium hubble enable --ui
 ../linkerd.sh recreate
+
+c watch
