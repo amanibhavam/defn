@@ -25,7 +25,6 @@ case "${1}" in
       kubectl delete ns linkerd-viz
       kubectl delete ns linkerd
       rm -f ./*.crt ./*.key
-      "$0" new-ca v1
       "$0" install v1
       ;;
    new-ca)
