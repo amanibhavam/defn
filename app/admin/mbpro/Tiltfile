@@ -8,7 +8,7 @@ k8s_yaml('main.yaml')
 load('ext://uibutton', 'cmd_button', 'location', 'text_input')
 
 cmd_button(name='vscode',
-           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-mbpro+namespace=mbpro+podname=mbpro+name=defn+image=defn++/workspaces/defn/app/admin'],
+           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-mbpro+namespace=mbpro+podname=mbpro+name=defn+image=defn++/workspaces'],
            text='Launch VSCode',
            location=location.NAV,
            icon_name='waving_hand')
@@ -26,5 +26,5 @@ cmd_button(name='linkerd',
            icon_name='waving_hand')
 
 local_resource('vscode',
-    cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-mbpro+namespace=mbpro+podname=mbpro+name=defn+image=defn++/workspaces/defn/app/admin',
+    cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-mbpro+namespace=mbpro+podname=mbpro+name=defn+image=defn++/workspaces',
     resource_deps=['mbpro'])
