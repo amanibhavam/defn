@@ -32,7 +32,7 @@ if [[ -n "${cilium:-}" ]]; then
     ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /run/cilium/cgroupv2
 fi
 
-c up; c context
+c up
 
 if [[ -n "${cilium:-}" ]]; then
     adjust_docker
