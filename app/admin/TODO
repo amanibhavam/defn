@@ -1,14 +1,37 @@
-c down; c up; c context
+server="$(basename "$(pwd)")"
 
-docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
-    echo $a
-    : | docker exec $a sh -c "mount bpffs /sys/fs/bpf -t bpf"
-    : | docker exec $a sh -c "mount --make-shared /sys/fs/bpf"
-    : | docker exec $a sh -c "if ! test -e /bin/mount; then ln -nfs /bin/aux/mount bin/; fi"
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" true
+
+c down
+
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /sys/fs/bpf
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount bpffs -t bpf /sys/fs/bpf
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /sys/fs/bpf
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mkdir -p /run/cilium/cgroupv2
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /run/cilium/cgroupv2
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount -t cgroup2 none /run/cilium/cgroupv2
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /run/cilium/cgroupv2
+
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /sys/fs/bpf
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /run/cilium/cgroupv2
+
+c up; c context
+
+function adjust_docker {
+    docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
+        echo $a
+        : | docker exec $a sh -c "mount bpffs /sys/fs/bpf -t bpf"
+        : | docker exec $a sh -c "mount --make-shared /sys/fs/bpf"
+        : | docker exec $a sh -c "mkdir -p /run/cilium/cgroupv2"
+        : | docker exec $a sh -c "mount -t cgroup2 none /run/cilium/cgroupv2"
+        : | docker exec $a sh -c "mount --make-shared /run/cilium/cgroupv2"
+        : | docker exec $a sh -c "if ! test -e /bin/mount; then ln -nfs /bin/aux/mount bin/; fi"
+    done
 done
 
-cilium uninstall
+adjust_docker
 cilium install --version v1.11.3
+(sleep 60; adjust_docker) &
 cilium hubble enable --ui
 ../linkerd.sh recreate
 
