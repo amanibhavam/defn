@@ -1,0 +1,32 @@
+analytics_settings(False)
+
+load('ext://uibutton', 'cmd_button', 'location', 'text_input')
+
+def admin_init(server):
+    allow_k8s_contexts('k3d-%s' %(server,))
+
+    docker_build('defn/defn', '.')
+    k8s_yaml('main.yaml')
+
+
+    cmd_button(name='vscode',
+            argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-%s+namespace=%s+podname=%s+name=defn+image=defn++/workspaces' % (server,server,server)],
+            text='Launch VSCode',
+            location=location.NAV,
+            icon_name='waving_hand')
+
+    cmd_button(name='cilium',
+            argv=['cilium', 'hubble', 'ui'],
+            text='Launch Cilium',
+            location=location.NAV,
+            icon_name='hive')
+
+    cmd_button(name='linkerd',
+            argv=['linkerd', 'viz', 'dashboard'],
+            text='Launch Linkerd',
+            location=location.NAV,
+            icon_name='paragliding')
+
+    #local_resource('vscode',
+    #    cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-%s+namespace=%s+podname=%s+name=defn+image=defn++/workspaces' % (server,server,server),
+    #    resource_deps=[server])
