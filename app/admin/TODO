@@ -1,5 +1,3 @@
-export DOCKER_HOST=ssh://ubuntu@$(basename $(pwd)).defn.ooo
-
 c down; c up; c context
 
 docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
