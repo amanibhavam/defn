@@ -1,22 +1,3 @@
-server="$(basename "$(pwd)")"
-
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" true
-
-c down
-
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /sys/fs/bpf
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount bpffs -t bpf /sys/fs/bpf
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /sys/fs/bpf
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mkdir -p /run/cilium/cgroupv2
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /run/cilium/cgroupv2
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount -t cgroup2 none /run/cilium/cgroupv2
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /run/cilium/cgroupv2
-
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /sys/fs/bpf
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /run/cilium/cgroupv2
-
-c up; c context
-
 function adjust_docker {
     docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
         echo $a
@@ -29,10 +10,35 @@ function adjust_docker {
     done
 }
 
-adjust_docker
-(sleep 60; adjust_docker) &
-cilium install --version v1.11.3
-cilium hubble enable --ui
+cilium=''
+server="$(basename "$(pwd)")"
+
+ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" true
+
+c down
+
+if [[ -n "${cilium:-}" ]]; then
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount bpffs -t bpf /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mkdir -p /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount -t cgroup2 none /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /run/cilium/cgroupv2
+
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /run/cilium/cgroupv2
+fi
+
+c up; c context
+
+if [[ -n "${cilium:-}" ]]; then
+    adjust_docker
+    (sleep 60; adjust_docker) &
+    cilium install --version v1.11.3
+    cilium hubble enable --ui
+fi
+
 ../linkerd.sh recreate
 
 c watch
