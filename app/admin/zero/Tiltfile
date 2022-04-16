@@ -1,30 +1,3 @@
-analytics_settings(False)
-
-allow_k8s_contexts('k3d-zero')
-
-docker_build('defn/defn', '.')
-k8s_yaml('main.yaml')
-
-load('ext://uibutton', 'cmd_button', 'location', 'text_input')
-
-cmd_button(name='vscode',
-           argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-zero+namespace=zero+podname=zero+name=defn+image=defn++/workspaces/defn/app/admin'],
-           text='Launch VSCode',
-           location=location.NAV,
-           icon_name='waving_hand')
-
-cmd_button(name='cilium',
-           argv=['cilium', 'hubble', 'ui'],
-           text='Launch Cilium',
-           location=location.NAV,
-           icon_name='waving_hand')
-
-cmd_button(name='linkerd',
-           argv=['linkerd', 'viz', 'dashboard'],
-           text='Launch Linkerd',
-           location=location.NAV,
-           icon_name='waving_hand')
-
-local_resource('vscode',
-    cmd='code --folder-uri vscode-remote://k8s-container+context=k3d-zero+namespace=zero+podname=zero+name=defn+image=defn++/workspaces/defn/app/admin',
-    resource_deps=['zero'])
+symbols = load_dynamic('../Tiltfile')
+init = symbols.get('admin_init')
+init('zero')
