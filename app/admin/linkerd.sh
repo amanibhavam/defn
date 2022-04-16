@@ -51,6 +51,13 @@ case "${1}" in
    rotate)
       "$0" "v$(date +%s)"
       ;;
+   link)
+      shift
+      source="$1"; shift
+      for a in "$@"; do
+         linkerd --context="k3d-$a" multicluster link --cluster-name "$a" | kubectl --context="k3d-${source}" apply -f -
+      done
+      ;;
    *)
       echo recreate
       echo rotate
