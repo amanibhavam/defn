@@ -1,40 +1,44 @@
 #!/usr/bin/env bash
 
-server="$(basename "$(pwd)")"
+context="k3d-$(basename "$(pwd)")"
 
 case "${1}" in
    install)
-      linkerd install --context "${server}" --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl --context "${server}" apply -f -
-      sleep 10; linkerd check --context "${server}" --proxy
-      linkerd viz install --context "${server}" | kubectl apply --context "${server}" -f -
-      sleep 10; linkerd viz check --context "${server}"
-      linkerd check --context "${server}" --proxy
+      linkerd install --context "${context}" --identity-trust-anchors-file "../$2-ca.crt" --identity-issuer-certificate-file "../$2-identity.crt" --identity-issuer-key-file "../$2-identity.key" | kubectl --context "${context}" apply -f -
+      sleep 10; linkerd check --context "${context}" --proxy
+
+      linkerd viz install --context "${context}" | kubectl apply --context "${context}" -f -
+      sleep 10; linkerd viz check --context "${context}"
+      linkerd check --context "${context}" --proxy
+
+      linkerd multicluster install --context "${context}" | kubectl --context "${context}" apply -f -
+      sleep 10; linkerd multicluster check --context "${context}"
       ;;
    add-anchor)
-      linkerd upgrade --context "${server}" --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply --context "${server}" -f -
+      linkerd upgrade --context "${context}" --identity-trust-anchors-file "../trust-anchors.crt" --identity-issuer-certificate-file "../$2-identity.crt" --identity-issuer-key-file "../$2-identity.key" | kubectl apply --context "${context}" -f -
       ;;
    restart)
-      kubectl --context "${server}" -n linkerd rollout restart deployments
-      sleep 10; linkerd check --context "${server}" --proxy
+      kubectl --context "${context}" -n linkerd rollout restart deployments
+      sleep 10; linkerd check --context "${context}" --proxy
       ;;
    change-identity)
-      linkerd upgrade --context "${server}" --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply --context "${server}" -f -
+      linkerd upgrade --context "${context}" --identity-trust-anchors-file "../trust-anchors.crt" --identity-issuer-certificate-file "../$2-identity.crt" --identity-issuer-key-file "../$2-identity.key" | kubectl apply --context "${context}" -f -
       ;;
    only-anchor)
-      linkerd upgrade --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
+      linkerd upgrade --identity-trust-anchors-file "../$2-ca.crt" --identity-issuer-certificate-file "../$2-identity.crt" --identity-issuer-key-file "../$2-identity.key" | kubectl apply -f -
       ;;
    recreate)
-      linkerd viz uninstall --context "${server}"
-      linkerd uninstall --context "${server}"
+      linkerd viz uninstall --context "${context}"
+      linkerd uninstall --context "${context}"
       "$0" install v1
       ;;
    new-ca)
       shift
       for a in "$@"; do
-         step certificate create root.linkerd.cluster.local "$a-ca.crt" "$a-ca.key" --not-after=8700h --no-password --insecure --profile root-ca --force
-         step certificate create identity.linkerd.cluster.local "$a-identity.crt" "$a-identity.key" --not-after=8700h --no-password --insecure --profile intermediate-ca --ca "$a-ca.crt" --ca-key "$a-ca.key" --force
+         step certificate create root.linkerd.cluster.local "../$a-ca.crt" "../$a-ca.key" --not-after=8700h --no-password --insecure --profile root-ca --force
+         step certificate create identity.linkerd.cluster.local "../$a-identity.crt" "../$a-identity.key" --not-after=8700h --no-password --insecure --profile intermediate-ca --ca "../$a-ca.crt" --ca-key "../$a-ca.key" --force
       done
-      cat v*-ca.crt > trust-anchors.crt
+      cat ../v*-ca.crt > ../trust-anchors.crt
       exit 0
       ;;
    v*)
