@@ -1,15 +1,15 @@
 apiVersion: k3d.io/v1alpha4
 kind: Simple
 metadata:
-  name: zero
+  name: mbpro
 servers: 1
 agents: 0
 kubeAPI:
-  host: zero.defn.ooo
+  host: mbpro.defn.ooo
   hostIP: 0.0.0.0
-image: rancher/k3s:v1.22.6-k3s1
+image: rancher/k3s:v1.22.8-k3s1
 hostAliases:
-  - ip: 100.101.28.35
+  - ip: 100.90.96.49
     hostnames:
       - this
 volumes:
@@ -32,10 +32,10 @@ options:
     disableLoadbalancer: false
   k3s:
     extraArgs:
-      - arg: --tls-san=100.101.28.35
+      - arg: --tls-san=100.90.96.49
         nodeFilters:
           - server:0
-      - arg: --tls-san=zero.defn.ooo
+      - arg: --tls-san=mbpro.defn.ooo
         nodeFilters:
           - server:0
       - arg: --disable=traefik

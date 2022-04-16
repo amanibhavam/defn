@@ -13,7 +13,9 @@ function adjust_docker {
 cilium=''
 server="$(basename "$(pwd)")"
 
-ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" true
+if [[ -n "${DOCKER_HOST:-}" ]]; then
+    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" true
+ fi
 
 c down
 
