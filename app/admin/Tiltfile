@@ -11,19 +11,19 @@ def admin_init(server):
 
     cmd_button(name='vscode',
             argv=['code', '--folder-uri', 'vscode-remote://k8s-container+context=k3d-%s+namespace=%s+podname=%s+name=defn+image=defn++/workspaces' % (server,server,server)],
-            text='Launch VSCode',
+            text='VSCode',
             location=location.NAV,
             icon_name='waving_hand')
 
     cmd_button(name='cilium',
-            argv=['cilium', 'hubble', 'ui'],
-            text='Launch Cilium',
+            argv=['cilium', 'hubble', 'ui', '--context', 'k3d-%s' % (server,)],
+            text='Cilium',
             location=location.NAV,
             icon_name='hive')
 
     cmd_button(name='linkerd',
-            argv=['linkerd', 'viz', 'dashboard'],
-            text='Launch Linkerd',
+            argv=['linkerd', 'viz', 'dashboard', '--context', 'k3d-%s' % (server,)],
+            text='Linkerd',
             location=location.NAV,
             icon_name='paragliding')
 
