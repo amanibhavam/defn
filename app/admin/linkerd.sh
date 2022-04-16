@@ -1,29 +1,31 @@
 #!/usr/bin/env bash
 
+server="$(basename "$(pwd)")"
+
 case "${1}" in
    install)
-      linkerd install --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
-      sleep 10; linkerd check --proxy
-      linkerd viz install | kubectl apply -f -
-      sleep 10; linkerd viz check
-      linkerd check --proxy
+      linkerd install --context "${server}" --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl --context "${server}" apply -f -
+      sleep 10; linkerd check --context "${server}" --proxy
+      linkerd viz install --context "${server}" | kubectl apply --context "${server}" -f -
+      sleep 10; linkerd viz check --context "${server}"
+      linkerd check --context "${server}" --proxy
       ;;
    add-anchor)
-      linkerd upgrade --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
+      linkerd upgrade --context "${server}" --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply --context "${server}" -f -
       ;;
    restart)
-      kubectl -n linkerd rollout restart deployments
-      sleep 10; linkerd check --proxy
+      kubectl --context "${server}" -n linkerd rollout restart deployments
+      sleep 10; linkerd check --context "${server}" --proxy
       ;;
    change-identity)
-      linkerd upgrade --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
+      linkerd upgrade --context "${server}" --identity-trust-anchors-file trust-anchors.crt --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply --context "${server}" -f -
       ;;
    only-anchor)
       linkerd upgrade --identity-trust-anchors-file "$2-ca.crt" --identity-issuer-certificate-file "$2-identity.crt" --identity-issuer-key-file "$2-identity.key" | kubectl apply -f -
       ;;
    recreate)
-      linkerd viz uninstall
-      linkerd uninstall
+      linkerd viz uninstall --context "${server}"
+      linkerd uninstall --context "${server}"
       "$0" install v1
       ;;
    new-ca)
