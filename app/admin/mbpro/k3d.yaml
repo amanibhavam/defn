@@ -29,13 +29,16 @@ options:
     disableLoadbalancer: false
   k3s:
     extraArgs:
-      - arg: --tls-san=100.90.96.49
+      - arg: --tls-san=100.106.172.56
         nodeFilters:
           - server:0
       - arg: --tls-san=mbpro.defn.ooo
         nodeFilters:
           - server:0
       - arg: --disable=traefik
+        nodeFilters:
+          - server:0
+      - arg: --node-external-ip=100.106.172.56
         nodeFilters:
           - server:0
   kubeconfig:

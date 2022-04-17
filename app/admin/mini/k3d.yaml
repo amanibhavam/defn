@@ -38,6 +38,9 @@ options:
       - arg: --disable=traefik
         nodeFilters:
           - server:0
+      - arg: --node-external-ip=100.90.96.49
+        nodeFilters:
+          - server:0
   kubeconfig:
     updateDefaultKubeconfig: true
     switchCurrentContext: false
