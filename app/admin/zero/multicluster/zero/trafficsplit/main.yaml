@@ -1,0 +1,20 @@
+apiVersion: split.smi-spec.io/v1alpha1
+kind: TrafficSplit
+metadata:
+  name: podinfo
+  namespace: test
+  annotations:
+    failover.linkerd.io/primary-service: podinfo
+  labels:
+    failover.linkerd.io/controlled-by: linkerd-failover
+spec:
+  service: podinfo
+  backends:
+    - service: podinfo
+      weight: 1
+    - service: podinfo-mini
+      weight: 0
+    - service: podinfo-imac
+      weight: 0
+    - service: podinfo-mbpro
+      weight: 0
