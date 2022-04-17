@@ -58,3 +58,5 @@ github.com/defn/boot v0.0.87 h1:dv7LCvSv3Z8DNUK7f/Eo8sC6qMXksoSxJ1d9LuqtnVA=
 github.com/defn/boot v0.0.87/cue.mods h1:FGAvcK1V+1jkcSPsNO3W2u7cXp7AB9/irB7q4aqtFY8=
 github.com/defn/boot v0.0.88 h1:cgC6sQ9HFT8fEc47z4wBD0ICfNiA437BMmcf5UyIhVw=
 github.com/defn/boot v0.0.88/cue.mods h1:FGAvcK1V+1jkcSPsNO3W2u7cXp7AB9/irB7q4aqtFY8=
+github.com/defn/boot v0.0.89 h1:bbNSKshqDsd7/UXCYq4Q++87lUauUWAB7ymAbkcFI7Y=
+github.com/defn/boot v0.0.89/cue.mods h1:FGAvcK1V+1jkcSPsNO3W2u7cXp7AB9/irB7q4aqtFY8=
