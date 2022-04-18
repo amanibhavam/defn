@@ -9,3 +9,8 @@ resources:
 
 patches:
   - patch.yml
+
+images:
+  - name: stefanprodan/podinfo
+    newName: defn/podinfo
+    newTag: latest
