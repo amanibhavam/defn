@@ -14,7 +14,3 @@ spec:
       weight: 1
     - service: podinfo-mini
       weight: 0
-    - service: podinfo-imac
-      weight: 0
-    - service: podinfo-mbpro
-      weight: 0
