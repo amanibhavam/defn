@@ -1,3 +1,4 @@
+allow_k8s_contexts('Default')
 symbols = load_dynamic('../Tiltfile')
 init = symbols.get('admin_init')
 init('imac')
