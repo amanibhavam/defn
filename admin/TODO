@@ -1,3 +1,5 @@
+set -exfu
+
 function adjust_docker {
     docker ps | awk '{print $NF}' | grep k3d- | grep server | while read -r a; do
         echo $a

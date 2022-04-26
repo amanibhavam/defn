@@ -8,10 +8,6 @@ kubeAPI:
   host: zero.defn.ooo
   hostIP: 0.0.0.0
 image: rancher/k3s:v1.22.8-k3s1
-hostAliases:
-  - ip: 100.101.28.35
-    hostnames:
-      - this
 volumes:
   - volume: /var/run/docker.sock:/var/run/docker.sock
     nodeFilters:
@@ -25,6 +21,9 @@ volumes:
   - volume: k3d-work:/mnt/work
     nodeFilters:
       - server:0
+registries:
+  use:
+    - k3d-registry.localhost:5555
 options:
   k3d:
     wait: true
@@ -41,9 +40,9 @@ options:
       - arg: --disable=traefik
         nodeFilters:
           - server:0
+      - arg: --node-external-ip=100.101.28.35
+        nodeFilters:
+          - server:0
   kubeconfig:
     updateDefaultKubeconfig: true
     switchCurrentContext: false
-registries:
-  use:
-    - k3d-registry.localhost:5555
