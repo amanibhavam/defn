@@ -1,0 +1,46 @@
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: defn
+servers: 1
+agents: 0
+kubeAPI:
+  host: defn.tiger-mamba.ts.net
+  hostIP: 0.0.0.0
+image: rancher/k3s:v1.22.8-k3s1
+volumes:
+  - volume: /var/run/docker.sock:/var/run/docker.sock
+    nodeFilters:
+      - server:0
+  - volume: k3d-password-store:/mnt/password-store
+    nodeFilters:
+      - server:0
+  - volume: k3d-kube:/mnt/kube
+    nodeFilters:
+      - server:0
+  - volume: k3d-work:/mnt/work
+    nodeFilters:
+      - server:0
+network: host
+options:
+  k3d:
+    wait: true
+    timeout: 360s
+    disableLoadbalancer: false
+  k3s:
+    extraArgs:
+      - arg: --tls-san=100.89.50.10
+        nodeFilters:
+          - server:0
+      - arg: --tls-san=defn.tiger-mamba.ts.net
+        nodeFilters:
+          - server:0
+      - arg: --disable=traefik
+        nodeFilters:
+          - server:0
+      - arg: --node-external-ip=100.89.50.10
+        nodeFilters:
+          - server:0
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: false
