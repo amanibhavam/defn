@@ -6,6 +6,6 @@ import (
 
 bootContext: Compute.#BootContext & {
 	k3d_name: "east"
-	k3d_host: "east.defn.ooo"
+	k3d_host: "east.tiger-mamba.ts.net"
 	k3d_ip:   "100.101.28.35"
 }

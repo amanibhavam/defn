@@ -5,7 +5,7 @@ metadata:
 servers: 1
 agents: 0
 kubeAPI:
-  host: mbpro.defn.ooo
+  host: mbpro.tiger-mamba.ts.net
   hostIP: 0.0.0.0
 image: rancher/k3s:v1.22.8-k3s1
 network: host
@@ -32,7 +32,7 @@ options:
       - arg: --tls-san=100.106.172.56
         nodeFilters:
           - server:0
-      - arg: --tls-san=mbpro.defn.ooo
+      - arg: --tls-san=mbpro.tiger-mamba.ts.net
         nodeFilters:
           - server:0
       - arg: --disable=traefik

@@ -5,7 +5,7 @@ metadata:
 servers: 1
 agents: 0
 kubeAPI:
-  host: zero.defn.ooo
+  host: zero.tiger-mamba.ts.net
   hostIP: 0.0.0.0
 image: rancher/k3s:v1.22.8-k3s1
 volumes:
@@ -34,7 +34,7 @@ options:
       - arg: --tls-san=100.101.28.35
         nodeFilters:
           - server:0
-      - arg: --tls-san=zero.defn.ooo
+      - arg: --tls-san=zero.tiger-mamba.ts.net
         nodeFilters:
           - server:0
       - arg: --disable=traefik

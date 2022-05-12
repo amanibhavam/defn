@@ -16,22 +16,22 @@ cilium=''
 server="$(basename "$(pwd)")"
 
 if [[ -n "${DOCKER_HOST:-}" ]]; then
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" true
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" true
  fi
 
 c down
 
 if [[ -n "${cilium:-}" ]]; then
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /sys/fs/bpf
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount bpffs -t bpf /sys/fs/bpf
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /sys/fs/bpf
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mkdir -p /run/cilium/cgroupv2
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo umount /run/cilium/cgroupv2
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount -t cgroup2 none /run/cilium/cgroupv2
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo mount --make-shared /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo umount /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo mount bpffs -t bpf /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo mount --make-shared /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo mkdir -p /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo umount /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo mount -t cgroup2 none /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo mount --make-shared /run/cilium/cgroupv2
 
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /sys/fs/bpf
-    ssh -o StrictHostKeyChecking=false "${server}.defn.ooo" sudo findmnt -o TARGET,PROPAGATION /run/cilium/cgroupv2
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo findmnt -o TARGET,PROPAGATION /sys/fs/bpf
+    ssh -o StrictHostKeyChecking=false "${server}.tiger-mamba.ts.net" sudo findmnt -o TARGET,PROPAGATION /run/cilium/cgroupv2
 fi
 
 c up
